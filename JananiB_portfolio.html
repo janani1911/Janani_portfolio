@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>B. Janani — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #f0f4ff;
+      --surface: #ffffff;
+      --accent: #4f46e5;
+      --accent2: #f97316;
+      --accent3: #06b6d4;
+      --accent4: #10b981;
+      --pink: #ec4899;
+      --text: #1e1b4b;
+      --muted: #6b7280;
+      --border: #c7d2fe;
+      --grad1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --grad2: linear-gradient(135deg, #f97316 0%, #ec4899 100%);
+      --grad3: linear-gradient(135deg, #06b6d4 0%, #10b981 100%);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.1rem 4rem;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 2px solid var(--border);
+      box-shadow: 0 2px 20px rgba(79,70,229,0.08);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700;
+      background: var(--grad1); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.82rem;
+      letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+      transition: color 0.3s; border-bottom: 2px solid transparent; padding-bottom: 2px;
+    }
+    .nav-links a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1.1fr 0.9fr;
+      align-items: center; padding: 8rem 4rem 4rem;
+      background: linear-gradient(160deg, #eef2ff 0%, #fdf4ff 40%, #fff7ed 100%);
+      position: relative; overflow: hidden;
+    }
+    .blob { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; }
+    .b1 { width: 420px; height: 420px; background: rgba(79,70,229,0.14); top: -80px; right: -60px; }
+    .b2 { width: 300px; height: 300px; background: rgba(249,115,22,0.12); bottom: 60px; right: 280px; }
+    .b3 { width: 240px; height: 240px; background: rgba(236,72,153,0.1); top: 180px; left: -60px; }
+
+    .hero-left { position: relative; z-index: 1; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--accent); background: rgba(79,70,229,0.1);
+      border: 1.5px solid rgba(79,70,229,0.25);
+      padding: 0.4rem 1rem; border-radius: 2rem; margin-bottom: 1.8rem;
+      font-weight: 600; animation: fadeUp 0.7s ease both;
+    }
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.05;
+      color: var(--text); animation: fadeUp 0.7s 0.1s ease both;
+    }
+    .hero-name span {
+      background: var(--grad1); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-role {
+      font-size: 1.05rem; color: var(--muted); margin: 1.2rem 0 2rem;
+      line-height: 1.7; animation: fadeUp 0.7s 0.2s ease both;
+    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.7s 0.3s ease both; }
+    .btn {
+      padding: 0.85rem 2rem; border-radius: 50px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      cursor: pointer; text-decoration: none; transition: all 0.3s;
+      display: inline-block; font-weight: 600;
+    }
+    .btn-primary { background: var(--grad1); color: #fff; border: none; box-shadow: 0 4px 20px rgba(79,70,229,0.35); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(79,70,229,0.45); }
+    .btn-outline { background: #fff; color: var(--accent); border: 2px solid var(--accent); }
+    .btn-outline:hover { background: var(--accent); color: #fff; transform: translateY(-3px); }
+
+    .hero-right { position: relative; z-index: 1; display: flex; justify-content: center; animation: fadeIn 1s 0.4s ease both; }
+    .stats-wrap { display: flex; flex-direction: column; gap: 1rem; width: 260px; }
+    .stat-card {
+      background: #fff; border-radius: 1.2rem; padding: 1.2rem 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+      box-shadow: 0 4px 20px rgba(79,70,229,0.1); border: 1.5px solid var(--border);
+      transition: transform 0.3s;
+    }
+    .stat-card:hover { transform: translateX(6px); }
+    .stat-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .ic1{background:linear-gradient(135deg,#667eea,#764ba2);}
+    .ic2{background:linear-gradient(135deg,#f97316,#ec4899);}
+    .ic3{background:linear-gradient(135deg,#06b6d4,#10b981);}
+    .ic4{background:linear-gradient(135deg,#f59e0b,#ef4444);}
+    .stat-info .val { font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--text); line-height:1; }
+    .stat-info .lbl { font-size:0.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em; margin-top:0.2rem; }
+    .avail-strip {
+      background: linear-gradient(135deg,#d1fae5,#a7f3d0); border: 1.5px solid #6ee7b7;
+      border-radius: 50px; padding: 0.7rem 1.2rem;
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.8rem; color: #065f46; font-weight: 600;
+    }
+    .dot { width:8px;height:8px;border-radius:50%;background:#10b981;animation:pulse 2s infinite; }
+
+    /* SECTION BASE */
+    section { padding: 5rem 4rem; }
+    .section-label { font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase; font-weight:600; margin-bottom:0.5rem; }
+    .section-title { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3vw,2.6rem); margin-bottom:0.8rem; line-height:1.2; color:var(--text); }
+    .section-bar { width:50px; height:4px; border-radius:2px; margin-bottom:3rem; }
+
+    /* ABOUT */
+    #about { background: #fff; }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
+    .about-text { font-size:0.98rem; line-height:1.9; color:var(--muted); }
+    .about-text p+p { margin-top:1rem; }
+    .skills-wrap { margin-top:2rem; }
+    .skills-title { font-weight:600; font-size:0.85rem; color:var(--text); margin-bottom:0.8rem; }
+    .skills-grid { display:flex; flex-wrap:wrap; gap:0.5rem; }
+    .skill-chip { padding:0.4rem 1rem; border-radius:50px; font-size:0.78rem; font-weight:500; transition:transform 0.2s; cursor:default; }
+    .skill-chip:hover { transform:translateY(-2px); }
+    .s1{background:#ede9fe;color:#6d28d9;} .s2{background:#fce7f3;color:#be185d;}
+    .s3{background:#cffafe;color:#0e7490;} .s4{background:#dcfce7;color:#15803d;}
+    .s5{background:#fff7ed;color:#c2410c;} .s6{background:#fef9c3;color:#92400e;}
+    .s7{background:#ede9fe;color:#7c3aed;} .s8{background:#fce7f3;color:#9d174d;}
+    .edu-card { background:linear-gradient(135deg,#f0f4ff,#fdf4ff); border:2px solid var(--border); border-radius:1.2rem; padding:2rem; }
+    .edu-degree{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text);margin-bottom:0.3rem;}
+    .edu-school{font-size:0.85rem;color:var(--muted);margin-bottom:0.3rem;}
+    .edu-badge-wrap{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1rem;}
+    .edu-badge{display:inline-block;padding:0.35rem 0.9rem;border-radius:50px;font-size:0.75rem;font-weight:600;}
+    .bp{background:#ede9fe;color:#6d28d9;} .bo{background:#fff7ed;color:#c2410c;} .bg{background:#dcfce7;color:#15803d;}
+
+    /* PROJECTS */
+    #projects { background: linear-gradient(160deg,#eef2ff,#fdf4ff); }
+    .projects-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:1.8rem; }
+    .project-card {
+      background:#fff; border-radius:1.4rem; padding:2rem;
+      transition:all 0.3s; box-shadow:0 4px 20px rgba(79,70,229,0.08);
+      border:1.5px solid var(--border); position:relative; overflow:hidden;
+    }
+    .project-card:hover { transform:translateY(-6px); box-shadow:0 16px 40px rgba(79,70,229,0.16); }
+    .project-top-bar { height:5px; border-radius:5px; margin-bottom:1.5rem; }
+    .bar1{background:var(--grad1);} .bar2{background:var(--grad2);}
+    .project-num{font-family:'Playfair Display',serif;font-size:2.5rem;color:#e0e7ff;line-height:1;margin-bottom:0.8rem;}
+    .project-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--text);margin-bottom:0.8rem;line-height:1.4;}
+    .project-desc{font-size:0.87rem;line-height:1.75;color:var(--muted);}
+    .project-tags{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1.2rem;}
+    .ptag{font-size:0.72rem;padding:0.28rem 0.7rem;border-radius:50px;font-weight:500;}
+    .pt1{background:#ede9fe;color:#6d28d9;} .pt2{background:#cffafe;color:#0e7490;}
+    .pt3{background:#dcfce7;color:#15803d;} .pt4{background:#fce7f3;color:#be185d;} .pt5{background:#fff7ed;color:#c2410c;}
+
+    /* COURSES */
+    #courses { background:#fff; }
+    .courses-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:1rem; }
+    .course-card {
+      display:flex; align-items:center; gap:1.2rem;
+      background:var(--bg); border:1.5px solid var(--border);
+      border-radius:1rem; padding:1.1rem 1.4rem; transition:all 0.3s;
+    }
+    .course-card:hover { border-color:var(--accent); background:#eef2ff; transform:translateX(4px); }
+    .c-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+    .ci1{background:linear-gradient(135deg,#667eea,#764ba2);}
+    .ci2{background:linear-gradient(135deg,#f97316,#f59e0b);}
+    .ci3{background:linear-gradient(135deg,#06b6d4,#10b981);}
+    .ci4{background:linear-gradient(135deg,#ec4899,#ef4444);}
+    .ci5{background:linear-gradient(135deg,#8b5cf6,#6d28d9);}
+    .ci6{background:linear-gradient(135deg,#10b981,#06b6d4);}
+    .ci7{background:linear-gradient(135deg,#f59e0b,#f97316);}
+    .course-name{font-size:0.88rem;color:var(--text);font-weight:500;flex:1;line-height:1.4;}
+    .course-org{font-size:0.72rem;color:var(--muted);margin-top:0.1rem;}
+    .course-date{font-size:0.72rem;font-weight:600;white-space:nowrap;padding:0.25rem 0.7rem;background:#ede9fe;color:#6d28d9;border-radius:50px;}
+
+    /* ACTIVITIES */
+    #activities { background:linear-gradient(160deg,#fff7ed,#fdf4ff 60%,#f0f4ff); }
+    .activities-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;}
+    .sub-title{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text);margin-bottom:1.2rem;}
+    .activity-list{list-style:none;display:flex;flex-direction:column;gap:0.8rem;}
+    .activity-list li{
+      padding:1rem 1.2rem; background:#fff; border-radius:0.8rem;
+      font-size:0.87rem; line-height:1.7; color:var(--muted);
+      box-shadow:0 2px 12px rgba(0,0,0,0.05); border-left:4px solid;
+      transition:transform 0.2s;
+    }
+    .activity-list li:hover{transform:translateX(4px);}
+    .al1 li{border-color:var(--accent);}
+    .al2 li{border-color:var(--accent2);}
+    .activity-list li strong{color:var(--text);}
+
+    /* CONTACT */
+    #contact {
+      background: linear-gradient(135deg,#667eea 0%,#764ba2 50%,#ec4899 100%);
+      text-align:center; color:#fff;
+    }
+    #contact .section-label{color:rgba(255,255,255,0.7);}
+    #contact .section-title{color:#fff;}
+    .contact-sub{color:rgba(255,255,255,0.8);margin:0.5rem 0 2.5rem;font-size:1rem;}
+    .contact-email{
+      font-family:'Playfair Display',serif;font-size:clamp(1.2rem,2.5vw,1.8rem);
+      color:#fff;text-decoration:none;
+      border-bottom:2px solid rgba(255,255,255,0.4);padding-bottom:0.2rem;
+      transition:border-color 0.3s;
+    }
+    .contact-email:hover{border-color:#fff;}
+    .contact-links{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:2rem;}
+    .btn-white{background:#fff;color:var(--accent);border:none;font-weight:600;}
+    .btn-white:hover{background:#f0f4ff;transform:translateY(-3px);}
+    .btn-ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.5);}
+    .btn-ghost:hover{background:rgba(255,255,255,0.15);transform:translateY(-3px);}
+
+    /* FOOTER */
+    footer{
+      padding:1.6rem 4rem; background:#fff;
+      border-top:2px solid var(--border);
+      display:flex;justify-content:space-between;align-items:center;
+      font-size:0.78rem;color:var(--muted);
+    }
+    .footer-brand{background:var(--grad1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600;}
+
+    /* ANIMATIONS */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+    @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      nav{padding:1rem 1.5rem;}
+      .nav-links{gap:1rem;}
+      #hero{grid-template-columns:1fr;padding:7rem 1.5rem 3rem;}
+      .hero-right{display:none;}
+      section{padding:3.5rem 1.5rem;}
+      .about-grid,.activities-grid{grid-template-columns:1fr;gap:2rem;}
+      footer{flex-direction:column;gap:0.5rem;text-align:center;padding:1.2rem 1.5rem;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  
+<div class="nav-logo" style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:white;font-size:1.5rem;font-weight:700;-webkit-text-fill-color:white;">
+  J
+</div>
+
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#activities">Activities</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="hero-left">
+    <span class="hero-tag">✨ B.Tech IT · Graduating 2026</span>
+    <h1 class="hero-name">B. <span>Janani</span></h1>
+    <p class="hero-role">Aspiring Software Developer &amp; AI/ML Enthusiast<br>Python · Deep Learning · Web Technologies</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stats-wrap">
+      <div class="stat-card"><div class="stat-icon ic1">🎓</div><div class="stat-info"><div class="val">8.82</div><div class="lbl">CGPA</div></div></div>
+      <div class="stat-card"><div class="stat-icon ic2">💡</div><div class="stat-info"><div class="val">2+</div><div class="lbl">Projects</div></div></div>
+      <div class="stat-card"><div class="stat-icon ic3">📜</div><div class="stat-info"><div class="val">7+</div><div class="lbl">Certifications</div></div></div>
+      <div class="stat-card"><div class="stat-icon ic4">📄</div><div class="stat-info"><div class="val">2</div><div class="lbl">Papers Presented</div></div></div>
+      <div class="avail-strip"><div class="dot"></div>Open to Opportunities</div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-grid reveal">
+    <div>
+      <p class="section-label" style="color:var(--accent)">About Me</p>
+      <h2 class="section-title">Driven by curiosity,<br>powered by code.</h2>
+      <div class="section-bar" style="background:var(--grad1)"></div>
+      <div class="about-text">
+        <p>I'm a final-year B.Tech Information Technology student at P.A College of Engineering and Technology, graduating in 2026 with a strong CGPA of 8.82.</p>
+        <p>My passion lies in Artificial Intelligence and Machine Learning — building smart systems that solve real-world problems, from detecting plant diseases to identifying Android malware.</p>
+        <p>I believe in continuous learning and hands-on experience, reflected through multiple internships, workshops, and research publications.</p>
+      </div>
+      <div class="skills-wrap">
+        <div class="skills-title">Technical Skills</div>
+        <div class="skills-grid">
+          <span class="skill-chip s1">Python</span>
+          <span class="skill-chip s2">HTML &amp; CSS</span>
+          <span class="skill-chip s3">SQL</span>
+          <span class="skill-chip s4">Machine Learning</span>
+          <span class="skill-chip s5">Deep Learning</span>
+          <span class="skill-chip s6">Data Science</span>
+          <span class="skill-chip s7">ANN</span>
+          <span class="skill-chip s8">MS Office</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="section-label" style="color:var(--accent2)">Education</p>
+      <h2 class="section-title">Academic Background</h2>
+      <div class="section-bar" style="background:var(--grad2)"></div>
+      <div class="edu-card">
+        <div class="edu-degree">B.Tech — Information Technology</div>
+        <div class="edu-school">P.A College of Engineering and Technology</div>
+        <div class="edu-school">2022 – 2026</div>
+        <div class="edu-badge-wrap">
+          <span class="edu-badge bp">⭐ 8.82 CGPA</span>
+          <span class="edu-badge bo">🏅 3rd Rank — Apr 2024</span>
+          <span class="edu-badge bg">ISTE Member</span>
+        </div>
+        <div style="margin-top:1.2rem;font-size:0.84rem;color:var(--muted);line-height:1.8;">
+          Executive Member — Department of IT<br>
+          Member of BIS Club — Manak Mitra
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <p class="section-label" style="color:var(--accent)">Work</p>
+  <h2 class="section-title">Featured Projects</h2>
+  <div class="section-bar" style="background:var(--grad1)"></div>
+  <div class="projects-grid reveal">
+    <div class="project-card">
+      <div class="project-top-bar bar1"></div>
+      <div class="project-num">01</div>
+      <h3 class="project-title">Smart Framework for Tomato Leaf Disease Detection</h3>
+      <p class="project-desc">Developed a smart system that detects tomato leaf disease and provides preventive measures along with fertilizer recommendations to improve crop health and agricultural yield.</p>
+      <div class="project-tags">
+        <span class="ptag pt1">Python</span><span class="ptag pt2">Machine Learning</span>
+        <span class="ptag pt3">Image Processing</span><span class="ptag pt5">Agriculture AI</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-top-bar bar2"></div>
+      <div class="project-num">02</div>
+      <h3 class="project-title">Android Malware Detection Using ANN</h3>
+      <p class="project-desc">Built an Android malware detection system using Python and Artificial Neural Networks (ANN) to accurately classify mobile applications as benign or malicious, enhancing device security.</p>
+      <div class="project-tags">
+        <span class="ptag pt1">Python</span><span class="ptag pt4">Deep Learning</span>
+        <span class="ptag pt2">ANN</span><span class="ptag pt3">Cybersecurity</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="courses">
+  <p class="section-label" style="color:var(--accent3)">Learning</p>
+  <h2 class="section-title">Certifications &amp; Courses</h2>
+  <div class="section-bar" style="background:var(--grad3)"></div>
+  <div class="courses-grid reveal">
+    <div class="course-card"><div class="c-icon ci1">🤖</div><div><div class="course-name">Introduction to Artificial Intelligence</div><div class="course-org">Infosys Springboard</div></div><span class="course-date">Aug 2024</span></div>
+    <div class="course-card"><div class="c-icon ci2">🐍</div><div><div class="course-name">Basics &amp; Foundations of Python Programming</div><div class="course-org">Infosys Springboard</div></div><span class="course-date">May 2024</span></div>
+    <div class="course-card"><div class="c-icon ci3">🧮</div><div><div class="course-name">Data Structures &amp; Algorithms Using Python</div><div class="course-org">Infosys Springboard</div></div><span class="course-date">Jun 2024</span></div>
+    <div class="course-card"><div class="c-icon ci4">📊</div><div><div class="course-name">Introduction to Data Science</div><div class="course-org">Infosys Springboard</div></div><span class="course-date">Apr 2024</span></div>
+    <div class="course-card"><div class="c-icon ci5">💻</div><div><div class="course-name">Professional Diploma in Computer Application</div><div class="course-org">CSE — PDCA</div></div><span class="course-date">2021–2022</span></div>
+    <div class="course-card"><div class="c-icon ci6">🔬</div><div><div class="course-name">10-Day Internship — Data Science with ML</div><div class="course-org">Nano Nino Solutions</div></div><span class="course-date">Jun 2024</span></div>
+    <div class="course-card"><div class="c-icon ci7">🏢</div><div><div class="course-name">8-Week Virtual Internship — Python</div><div class="course-org">Infosys Springboard</div></div><span class="course-date">Nov 2025 – Jan 2026</span></div>
+  </div>
+</section>
+
+<section id="activities">
+  <p class="section-label" style="color:var(--accent2)">Beyond Academics</p>
+  <h2 class="section-title">Activities &amp; Achievements</h2>
+  <div class="section-bar" style="background:var(--grad2)"></div>
+  <div class="activities-grid reveal">
+    <div>
+      <div class="sub-title">📄 Research &amp; Publications</div>
+      <ul class="activity-list al1">
+        <li>Presented paper on <strong>"Identification of Paddy Leaf Disease Using Machine Learning"</strong> at national conference on Computing for Sustainability — Mar 2025</li>
+        <li>Presented <strong>"Smart Framework for Early Prevention and Detection of Tomato Leaf Disease"</strong> at national level conference — Mar 2026</li>
+        <li>Attended Workshop on <strong>Full Stack Web Development</strong> — Marcello Tech (Aug 2024)</li>
+      </ul>
+    </div>
+    <div>
+      <div class="sub-title">🏆 Achievements &amp; Leadership</div>
+      <ul class="activity-list al2">
+        <li>🥉 Secured <strong>3rd Rank</strong> in April 2024 End Semester Examinations</li>
+        <li>♟️ Led a chess team to a <strong>championship title</strong> — Nov 2023</li>
+        <li>📋 <strong>BIS Club</strong> Member — Manak Mitra, Quality Connect Programme (Jan 2023)</li>
+        <li>⏱️ Completed <strong>Time Management &amp; Email Writing</strong> — Infosys Springboard (Sep 2025)</li>
+        <li>🔧 Executive Member, Dept. of IT &amp; ISTE Professional Society Member</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="reveal" style="max-width:600px;margin:0 auto;">
+    <p class="section-label">Let's Connect</p>
+    <h2 class="section-title">Get in Touch</h2>
+    <p class="contact-sub">Open to internship opportunities, collaborations &amp; exciting projects.</p>
+    <a href="mailto:jananibb54@gmail.com" class="contact-email">jananibb54@gmail.com</a>
+    <div class="contact-links">
+      <a href="mailto:jananibb54@gmail.com" class="btn btn-white">Send Email</a>
+      <a href="https://linkedin.com/in/jananib-11-it" target="_blank" class="btn btn-ghost">LinkedIn</a>
+      <a href="tel:+918248495713" class="btn btn-ghost">+91 82484 95713</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-brand">B. Janani — Portfolio 2026</span>
+  <span>B.Tech IT · P.A College of Engineering and Technology</span>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  reveals.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>
